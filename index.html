@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Special Campaign Valletta 2024</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="login-container">
+        <h2>Enter Password to Access Content</h2>
+        <input type="password" id="password-input" placeholder="Enter Password" />
+        <button onclick="checkPassword()">Submit</button>
+        <p id="error-message" style="display: none;">Incorrect password. Please try again.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
+        const correctHash = "9fea15920c374fece5d3abd87c5b83985e76ad8705b5b568245a10dc8ed376a1";
+
+        async function hashPassword(password) {
+            const msgBuffer = new TextEncoder().encode(password);
+            const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const input = document.getElementById("password-input").value;
+            const errorMessage = document.getElementById("error-message");
+            const inputHash = await hashPassword(input);
+
+            if (inputHash === correctHash) {
+                sessionStorage.setItem("authenticated", "true");
+                window.location.href = "content.html";
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
