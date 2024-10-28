@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Campaign Valletta 2024 - Content</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Special Campaign Valletta 2024</h1>
+    </header>
+    <main>
+        <!-- Video Section -->
+        <section id="video">
+            <h2>Watch Our Campaign Video</h2>
+            <iframe id="videoFrame" width="560" height="315" allow="autoplay"></iframe>
+            <p><a id="downloadLink" target="_blank" download>Download Video</a></p>
+        </section>
+
+        <!-- Folder Links Section -->
+        <section id="folders">
+            <h2>Access Campaign Materials</h2>
+            <ul>
+                <li><a id="ministryLink" target="_blank">Ministry Folder</a></li>
+                <li><a id="clipsLink" target="_blank">Clips Folder</a></li>
+                <li><a id="meetingsLink" target="_blank">Meetings Folder</a></li>
+                <li><a id="viewsLink" target="_blank">Views Folder</a></li>
+                <li><a id="gatheringsLink" target="_blank">Gatherings Folder</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        // Ensure this page is only accessible after login
+        if (!sessionStorage.getItem("authenticated")) {
+            window.location.href = "index.html"; // Redirect if not authenticated
+        }
+
+        // Map of hashed links to base64-encoded URLs
+        const encodedLinks = {
+            video: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZC8xQ21Xek9qQnhrVzRJZzQ0UGk5bUFUcFlVdFB5V1JwZ1EvcHJldmlldw==", // updated link with "preview"
+            ministry: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMWhwYlg3NjJhLTcxM3RjOFEzTV9oNTRybGtjWEJIZ29CP3VzcD1zaGFyaW5n",
+            clips: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMVRfTHVSSXYwN09jWmhfcUZRR2U0MU51THd0eVZ3UEczP3VzcD1zaGFyaW5n",
+            meetings: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMUhDU0lOdFdEdUJQWEx6dlBNc1MtTjBndjlrZ2xqQ1hZP3VzcD1zaGFyaW5n",
+            views: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMUgtcVhhRFJJUmxXeXMwMlh5MmxSdURIdlZrd0t5TllIP3VzcD1zaGFyaW5n",
+            gatherings: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMTlvQXRTSmUzVEF4TjhPV0xFX21GWUc4MkhQNG1WNzBPP3VzcD1zaGFyaW5n"
+        };
+
+        // Function to decode base64 and set links
+        function decodeBase64(encodedStr) {
+            return atob(encodedStr);
+        }
+
+        function setLinks() {
+            document.getElementById("videoFrame").src = decodeBase64(encodedLinks.video);
+            document.getElementById("downloadLink").href = decodeBase64(encodedLinks.video);
+            document.getElementById("ministryLink").href = decodeBase64(encodedLinks.ministry);
+            document.getElementById("clipsLink").href = decodeBase64(encodedLinks.clips);
+            document.getElementById("meetingsLink").href = decodeBase64(encodedLinks.meetings);
+            document.getElementById("viewsLink").href = decodeBase64(encodedLinks.views);
+            document.getElementById("gatheringsLink").href = decodeBase64(encodedLinks.gatherings);
+        }
+
+        // Decode and set links after authentication
+        setLinks();
+    </script>
+</body>
+</html>
